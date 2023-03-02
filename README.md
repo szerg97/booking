@@ -8,4 +8,6 @@ Booking application with microservices including <b>TypeScript</b> and <b>Spring
   - Databases should be either <b>document oriented</b> or <b>SQL</b>.
   - Frontend frameworks such as <b>Angular</b> or <b>React</b> should be used.
 ## Structure
+  - Frontend
+  - Backend
 ## Microservices used
