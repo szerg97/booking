@@ -1,5 +1,5 @@
 # Booking application
-Booking application with microservices including <b>JavaScript</b> and <b>Spring Boot</b>.
+Booking application with microservices including <b>TypeScript</b> and <b>Spring Boot</b>.
 ## Goals
   - The goal is to combine different microservices (written in JavaScript and Java) to create backend and later frontend.
   - The development should include <b>tests</b>.
