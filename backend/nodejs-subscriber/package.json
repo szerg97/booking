@@ -1,0 +1,27 @@
+{
+    "name": "understanding-ts",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon dist/app.js",
+        "start:dev": " concurrently \"tsc --watch\" \"nodemon dist/app.js --delay 1\""
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "dotenv": "^16.0.3",
+        "mongodb": "^5.0.1",
+        "mongoose": "^6.9.1",
+        "nats": "2.8.0",
+        "reflect-metadata": "^0.1.13",
+        "tsyringe": "4.7.0"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.9",
+        "concurrently": "7.5.0",
+        "nodemon": "^1.19.4"
+    }
+}
