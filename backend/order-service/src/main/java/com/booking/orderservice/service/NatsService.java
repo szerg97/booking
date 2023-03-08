@@ -21,7 +21,7 @@ public class NatsService {
     private Connection natsConnection;
 
     @PostConstruct
-    public void sui() {
+    public void init() {
         try {
             natsConnection = initConnection();
         } catch (IOException e) {

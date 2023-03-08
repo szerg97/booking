@@ -16,8 +16,12 @@ import java.io.IOException;
 @RequestMapping("/api/v1/order-service")
 public class OrderController {
 
+    private final NatsService natsService;
+
     @Autowired
-    private NatsService natsService;
+    public OrderController(NatsService natsService) {
+        this.natsService = natsService;
+    }
 
     @RequestMapping("")
     public ResponseEntity<OrderResponse> add(@Valid @RequestBody OrderRequest request){
