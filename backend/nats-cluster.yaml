@@ -63,30 +63,16 @@ services:
             - '34222:4222'
         hostname: nats-node-3
         networks: ['nats']
-    # Application Container ----------------------------------------->
-#    subscriber:
-#        image: andrasszalai127/subscriber:v1.0.1
-#        container_name: subscriber
-#        ports:
-#            - '3100:3100'
-#        depends_on:
-#            - nats-1
-#            - nats-2
-#            - nats-3
-#        networks: ['nats']
-    # nats-box:
-    #     container_name: Nats-Box
-    #     image: natsio/nats-box:0.13.3
-    #     depends_on:
-    #         - nats-1
-    #         - nats-2
-    #         - nats-3
-    #     command:
-    #         - -c
-    #         - "nats context add local --description 'Local Development' --server nats:4222 --select && /bin/sh -l"
-    #     stdin_open: true
-    #     tty: true
-    #     networks: ['nats']
+    nats-box:
+        container_name: Nats-Box
+        image: natsio/nats-box:0.13.3
+        depends_on:
+            - nats-1
+            - nats-2
+            - nats-3
+        stdin_open: true
+        tty: true
+        networks: ['nats']
 
 networks:
     nats:
