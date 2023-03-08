@@ -20,8 +20,7 @@ public class OrderServiceApplication {
     @Bean
     public CommandLineRunner commandLineRunner(){
         return args -> {
-            natsService.init();
-            System.out.println("Connected to NATS");
+            String url = natsService.getNatsConnection().getConnectedUrl();
             natsService.publish("Hi there!");
         };
     }
