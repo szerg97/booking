@@ -1,0 +1,89 @@
+version: '3.5'
+services:
+
+  nats-1:
+    image: nats:2.9.11-alpine
+    container_name: Nats-Node-1
+    command:
+      - '--debug'
+      - '--jetstream'
+      - '--cluster'
+      - 'nats://0.0.0.0:6222'
+      - '--http_port'
+      - '8222'
+      - '--routes'
+      - 'nats://nats-2:6222'
+      - '--name'
+      - 'nats-1'
+      - '--cluster_name'
+      - 'qmes_prod'
+    ports:
+      - '8222:8222'
+      - '4222:4222'
+    hostname: nats-node-1
+    networks: ['nats']
+
+  nats-2:
+    image: nats:2.9.11-alpine
+    container_name: Nats-Node-2
+    command:
+      - '--debug'
+      - '--jetstream'
+      - '--cluster'
+      - 'nats://0.0.0.0:6222'
+      - '--http_port'
+      - '8222'
+      - '--routes'
+      - 'nats://nats-1:6222'
+      - '--name'
+      - 'nats-2'
+      - '--cluster_name'
+      - 'qmes_prod'
+    ports:
+      - '28222:8222'
+      - '24222:4222'
+    hostname: nats-node-2
+    networks: ['nats']
+
+  nats-3:
+    image: nats:2.9.11-alpine
+    container_name: Nats-Node-3
+    command:
+      - '--debug'
+      - '--jetstream'
+      - '--cluster'
+      - 'nats://0.0.0.0:6222'
+      - '--http_port'
+      - '8222'
+      - '--routes'
+      - 'nats://nats-1:6222'
+      - '--name'
+      - 'nats-3'
+      - '--cluster_name'
+      - 'qmes_prod'
+    ports:
+      - '38222:8222'
+      - '34222:4222'
+    hostname: nats-node-3
+    networks: ['nats']
+
+  nats-manager:
+    image: andrasszalai127/booking-nats-manager:1.0.0
+    container_name: booking-nats-manager
+    depends_on:
+      - nats-3
+      - nats-1
+      - nats-2
+    networks: [ 'nats' ]
+
+  order-validator:
+    image: andrasszalai127/order-validator:1.0.0
+    container_name: order-validator
+    ports:
+      - '3100:3100'
+    depends_on:
+      - nats-manager
+    networks: ['nats']
+
+networks:
+  nats:
