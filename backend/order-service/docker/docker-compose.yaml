@@ -16,6 +16,7 @@ services:
       - nats
 
   nats-1:
+    container_name: Nats-Node-1
     image: nats:2.9.11-alpine
     command:
       - '--debug'
@@ -37,6 +38,7 @@ services:
     networks: ['nats']
 
   nats-2:
+    container_name: Nats-Node-2
     image: nats:2.9.11-alpine
     command:
       - '--debug'
@@ -58,6 +60,7 @@ services:
     networks: ['nats']
 
   nats-3:
+    container_name: Nats-Node-3
     image: nats:2.9.11-alpine
     command:
       - '--debug'

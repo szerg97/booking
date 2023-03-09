@@ -85,5 +85,19 @@ services:
       - nats-manager
     networks: ['nats']
 
+  order-service:
+    image: szalaigeri/booking-order-service:1.0.0
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      - NATS_URL=nats://nats-1:4222
+      - NATS_TOPIC=menu.logs
+    depends_on:
+      - nats-1
+      - nats-2
+      - nats-3
+    networks: ['nats']
+
 networks:
   nats:
