@@ -2,8 +2,9 @@ server:
   port: 8080
 
 nats:
+  url: ${NATS_URL:nats://localhost:4222}
   topic:
-    name: "hello"
+    name: ${NATS_TOPIC:booking.order.service.topic.v1}
 
 management:
   endpoints:
