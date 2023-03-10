@@ -99,5 +99,32 @@ services:
       - nats-3
     networks: ['nats']
 
+  prometheus:
+    image: prom/prometheus:v2.38.0
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./order-service/docker/prometheus:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    ports:
+      - '9090:9090'
+    networks: ['nats']
+
+  grafana:
+    image: grafana/grafana-oss:9.1.4
+    user: "$UID:$GID"
+    container_name: grafana-container
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./order-service/docker/grafana/:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_DOMAIN=localhost
+    networks: ['nats']
+
 networks:
   nats:
