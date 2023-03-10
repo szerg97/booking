@@ -46,6 +46,7 @@ public class NatsService {
         messageCounter.increment();
         Message natsMessage = new Message(topic, String.valueOf(messageCounter.count()), msg.getBytes());
         natsConnection.publish(natsMessage);
+        log.info(String.format("message published: %s", natsMessage));
     }
 
     public Connection getNatsConnection(){
