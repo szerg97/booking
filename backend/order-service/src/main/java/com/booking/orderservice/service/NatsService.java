@@ -1,6 +1,9 @@
 package com.booking.orderservice.service;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 import io.nats.client.Connection;
+import io.nats.client.Message;
 import io.nats.client.Nats;
 import io.nats.client.Options;
 import jakarta.annotation.PostConstruct;
@@ -19,6 +22,7 @@ public class NatsService {
     @Value("${nats.url}")
     private String url;
     private Connection natsConnection;
+    private final Counter messageCounter = Metrics.counter("os_message_counter");
 
     @PostConstruct
     public void init() {
@@ -39,7 +43,9 @@ public class NatsService {
     }
 
     public void publish(String msg) throws IOException {
-        natsConnection.publish(topic, msg.getBytes());
+        messageCounter.increment();
+        Message natsMessage = new Message(topic, String.valueOf(messageCounter.count()), msg.getBytes());
+        natsConnection.publish(natsMessage);
     }
 
     public Connection getNatsConnection(){
